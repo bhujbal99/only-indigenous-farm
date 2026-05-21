@@ -20,10 +20,11 @@ const RoosterManagement: React.FC<Props> = ({ roosters, language, updateRoosters
 
   // Form State
   const [formData, setFormData] = useState<Omit<Rooster, 'addedAt'>>({
-    id: '',
-    breed: Breed.Gavaran,
-    hatchDate: new Date().toISOString().split('T')[0],
-    weight: 0,
+  id: '',
+  breed: Breed.Gavaran,
+  hatchDate: new Date().toISOString().split('T')[0],
+  quantity: 1,
+  weight: 0,
     healthStatus: HealthStatus.Healthy,
     notes: ''
   });
@@ -55,13 +56,14 @@ const RoosterManagement: React.FC<Props> = ({ roosters, language, updateRoosters
     setShowModal(false);
     setEditingRooster(null);
     setFormData({
-      id: '',
-      breed: Breed.Gavaran,
-      hatchDate: new Date().toISOString().split('T')[0],
-      weight: 0,
-      healthStatus: HealthStatus.Healthy,
-      notes: ''
-    });
+  id: '',
+  breed: Breed.Gavaran,
+  hatchDate: new Date().toISOString().split('T')[0],
+  quantity: 1,
+  weight: 0,
+  healthStatus: HealthStatus.Healthy,
+  notes: ''
+});
   };
 
   const handleEdit = (rooster: Rooster) => {
@@ -141,6 +143,13 @@ const RoosterManagement: React.FC<Props> = ({ roosters, language, updateRoosters
                     <p className="text-gray-600 text-xs line-clamp-2 italic">{rooster.notes}</p>
                   </div>
                 )}
+
+                <div>
+  <p className="text-gray-400 text-xs mb-1">Quantity</p>
+  <p className="font-semibold text-emerald-700">
+    {rooster.quantity}
+  </p>
+</div>
               </div>
 
               <div className="flex gap-2 pt-4 border-t border-gray-50">
@@ -229,6 +238,24 @@ const RoosterManagement: React.FC<Props> = ({ roosters, language, updateRoosters
                     className="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-emerald-500"
                   />
                 </div>
+                <div className="space-y-1">
+  <label className="text-sm font-semibold text-gray-600">
+    Quantity
+  </label>
+
+  <input
+    type="number"
+    min="1"
+    value={formData.quantity}
+    onChange={(e) =>
+      setFormData({
+        ...formData,
+        quantity: Number(e.target.value)
+      })
+    }
+    className="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-emerald-500"
+  />
+</div>
               </div>
 
               <div className="space-y-1">

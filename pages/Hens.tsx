@@ -18,12 +18,13 @@ const Hens: React.FC<HensProps> = ({ hens, setHens, lang }) => {
   const [editingHen, setEditingHen] = useState<Hen | null>(null);
 
   // Form State
-  const [formData, setFormData] = useState<Omit<Hen, 'id'>>({
-    breed: Breed.Gavaran,
-    hatchDate: new Date().toISOString().split('T')[0],
-    healthStatus: HealthStatus.Healthy,
-    notes: ''
-  });
+ const [formData, setFormData] = useState<Omit<Hen, 'id'>>({
+  breed: Breed.Gavaran,
+  hatchDate: new Date().toISOString().split('T')[0],
+  quantity: 1,
+  healthStatus: HealthStatus.Healthy,
+  notes: ''
+});
 
   const filteredHens = hens.filter(h => 
     h.breed.toLowerCase().includes(searchTerm.toLowerCase()) || 
@@ -42,12 +43,13 @@ const Hens: React.FC<HensProps> = ({ hens, setHens, lang }) => {
   const closeModal = () => {
     setShowModal(false);
     setEditingHen(null);
-    setFormData({
-      breed: Breed.Gavaran,
-      hatchDate: new Date().toISOString().split('T')[0],
-      healthStatus: HealthStatus.Healthy,
-      notes: ''
-    });
+   setFormData({
+  breed: Breed.Gavaran,
+  hatchDate: new Date().toISOString().split('T')[0],
+  quantity: 1,
+  healthStatus: HealthStatus.Healthy,
+  notes: ''
+});
   };
 
   const handleEdit = (hen: Hen) => {
@@ -93,6 +95,7 @@ const Hens: React.FC<HensProps> = ({ hens, setHens, lang }) => {
                 <th className="px-6 py-4">{t.breed}</th>
                 <th className="px-6 py-4">{t.age}</th>
                 <th className="px-6 py-4">{t.status}</th>
+                <th className="px-6 py-4">Quantity</th>
                 <th className="px-6 py-4 text-right">Actions</th>
               </tr>
             </thead>
@@ -110,6 +113,9 @@ const Hens: React.FC<HensProps> = ({ hens, setHens, lang }) => {
                       {t[hen.healthStatus.toLowerCase()] || hen.healthStatus}
                     </span>
                   </td>
+                  <td className="px-6 py-4 font-bold text-emerald-700">
+  {hen.quantity}
+</td>
                   <td className="px-6 py-4 text-right">
                     <div className="flex justify-end gap-2">
                       <button onClick={() => handleEdit(hen)} className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors">
@@ -123,7 +129,7 @@ const Hens: React.FC<HensProps> = ({ hens, setHens, lang }) => {
                 </tr>
               )) : (
                 <tr>
-                  <td colSpan={5} className="px-6 py-12 text-center text-gray-400">
+                  <td colSpan={6} className="px-6 py-12 text-center text-gray-400">
                     No hens found. Start by adding one!
                   </td>
                 </tr>
@@ -166,6 +172,25 @@ const Hens: React.FC<HensProps> = ({ hens, setHens, lang }) => {
                     className="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-emerald-500"
                   />
                 </div>
+
+                <div className="space-y-1">
+  <label className="text-sm font-semibold text-gray-600">
+    Quantity
+  </label>
+
+  <input
+    type="number"
+    min="1"
+    value={formData.quantity}
+    onChange={(e) =>
+      setFormData({
+        ...formData,
+        quantity: Number(e.target.value)
+      })
+    }
+    className="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-emerald-500"
+  />
+</div>
               </div>
 
               <div className="space-y-1">

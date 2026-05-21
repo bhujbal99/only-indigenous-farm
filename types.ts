@@ -27,6 +27,7 @@ export interface Hen {
   id: string;
   breed: Breed;
   hatchDate: string;
+  quantity: number;
   healthStatus: HealthStatus;
   notes: string;
 }
@@ -35,6 +36,7 @@ export interface Rooster {
   id: string;
   breed: Breed;
   hatchDate: string;
+  quantity: number;
   weight: number;
   healthStatus: HealthStatus;
   notes?: string;
