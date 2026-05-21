@@ -73,6 +73,7 @@ const App: React.FC = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const [data, setData] = useState<FarmState>(INITIAL_STATE);
+  const [loaded, setLoaded] = useState(false);
 
   const t = translations[lang];
 
@@ -93,12 +94,19 @@ const App: React.FC = () => {
 if (fetchedData) {
   setData(fetchedData.data);
 }
+
+setLoaded(true);
+
   };
+
+
 
   loadData();
 }, []);
 
 useEffect(() => {
+    if (!loaded) return;
+    
   const saveData = async () => {
     const { error } = await supabase
       .from('farm_data')
