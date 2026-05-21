@@ -1,3 +1,4 @@
+import * as XLSX from 'xlsx';
 
 import React, { useMemo } from 'react';
 import { 
@@ -59,10 +60,38 @@ const Reports: React.FC<ReportsProps> = ({ data, lang }) => {
 
   const COLORS = ['#059669', '#3b82f6', '#f59e0b', '#ef4444', '#8b5cf6'];
 
-  return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 animate-in fade-in duration-700">
-      
-      {/* Monthly Profitability */}
+  const exportToExcel = () => {
+  const reportData = [
+    {
+      LifetimeRevenue: data.sales.reduce((a, b) => a + b.amount, 0),
+      TotalEggs: data.eggProduction.reduce((a, b) => a + b.collected, 0),
+      OverallMortality: data.mortalities.length,
+      MedicinesGiven: data.medicines.length,
+      TotalExpenses: data.expenses.reduce((a, b) => a + b.cost, 0)
+    }
+  ];
+
+  const worksheet = XLSX.utils.json_to_sheet(reportData);
+
+  const workbook = XLSX.utils.book_new();
+
+  XLSX.utils.book_append_sheet(workbook, worksheet, 'Farm Report');
+
+  XLSX.writeFile(workbook, 'Farm_Report.xlsx');
+};
+
+ return (
+  <>
+    <div className="flex justify-end mb-4">
+      <button
+        onClick={exportToExcel}
+        className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700"
+      >
+        Export Excel
+      </button>
+    </div>
+
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 animate-in fade-in duration-700">  {/* Monthly Profitability */}
       <div className="bg-white p-6 rounded-3xl shadow-sm border border-gray-100">
         <h3 className="text-lg font-bold text-gray-800 mb-6">{t.expenses} vs {t.sales}</h3>
         <div className="h-72">
@@ -154,6 +183,7 @@ const Reports: React.FC<ReportsProps> = ({ data, lang }) => {
       </div>
 
     </div>
+  </>
   );
 };
 
