@@ -91,7 +91,7 @@ const Reports: React.FC<ReportsProps> = ({ data, lang }) => {
       </button>
     </div>
 
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 animate-in fade-in duration-700">  {/* Monthly Profitability */}
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 animate-in fade-in duration-700 px-2">  {/* Monthly Profitability */}
       <div className="bg-white p-6 rounded-3xl shadow-sm border border-gray-100">
         <h3 className="text-lg font-bold text-gray-800 mb-6">{t.expenses} vs {t.sales}</h3>
         <div className="h-72">

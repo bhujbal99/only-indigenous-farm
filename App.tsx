@@ -208,7 +208,7 @@ useEffect(() => {
   };
 
   return (
-    <div className="min-h-screen flex bg-gray-50 overflow-hidden">
+    <div className="min-h-screen flex bg-gray-50 overflow-x-hidden">
       {/* Sidebar Desktop */}
       <aside className={`fixed inset-y-0 left-0 z-50 w-64 ${themeClasses.sidebar} text-white transform transition-transform duration-300 lg:relative lg:translate-x-0 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
         <div className={`p-6 flex items-center gap-3 border-b ${themeClasses.sidebarBorder}`}>
@@ -227,7 +227,11 @@ useEffect(() => {
           {menuItems.map(item => (
             <button
               key={item.id}
-              onClick={() => { setActiveTab(item.id); setIsSidebarOpen(false); }}
+             onClick={() => {
+  setActiveTab(item.id);
+  setIsSidebarOpen(false);
+}}
+
               className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-colors ${activeTab === item.id ? themeClasses.activeItem + ' text-white' : themeClasses.accentText + ' ' + themeClasses.hoverItem}`}
             >
               {item.icon}
