@@ -15,7 +15,9 @@ interface DashboardProps {
 const Dashboard: React.FC<DashboardProps> = ({ data, lang, setActiveTab, theme }) => {
   const t = translations[lang];
 
-  const totalAdults = data.hens.length + data.roosters.length;
+ const totalAdults =
+  data.hens.reduce((sum, hen) => sum + hen.quantity, 0) +
+  data.roosters.reduce((sum, rooster) => sum + rooster.quantity, 0);
   const totalChicks = data.chicks.reduce((acc, curr) => acc + curr.quantity, 0);
   
   const today = new Date().toISOString().split('T')[0];
