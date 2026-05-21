@@ -92,7 +92,17 @@ const App: React.FC = () => {
 
    
 if (fetchedData) {
-  setData(fetchedData.data);
+  setData({
+    hens: [],
+    roosters: [],
+    chicks: [],
+    eggProduction: [],
+    medicines: [],
+    mortalities: [],
+    expenses: [],
+    sales: [],
+    ...fetchedData.data
+  });
 }
 
 setLoaded(true);
@@ -106,7 +116,7 @@ setLoaded(true);
 
 useEffect(() => {
     if (!loaded) return;
-    
+
   const saveData = async () => {
     const { error } = await supabase
       .from('farm_data')
