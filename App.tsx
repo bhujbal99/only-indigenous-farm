@@ -78,20 +78,21 @@ const App: React.FC = () => {
 
   useEffect(() => {
   const loadData = async () => {
-    const { data, error } = await supabase
-      .from('farm_data')
-      .select('*')
-      .eq('id', 1)
-      .single();
+   const { data: fetchedData, error } = await supabase
+  .from('farm_data')
+  .select('*')
+  .eq('id', 1)
+  .single();
 
     if (error) {
       console.error('Load error:', error);
       return;
     }
 
-    if (data) {
-      setData(data.data);
-    }
+   
+if (fetchedData) {
+  setData(fetchedData.data);
+}
   };
 
   loadData();
