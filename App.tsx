@@ -36,6 +36,7 @@ import {
 // Pages
 import Dashboard from './pages/Dashboard';
 import Hens from './pages/Hens';
+import DiseaseLibrary from './pages/DiseaseLibrary';
 import RoosterManagement from './pages/RoosterManagement';
 import Chicks from './pages/Chicks';
 import EggProductionPage from './pages/EggProduction';
@@ -162,6 +163,7 @@ useEffect(() => {
     { id: 'hens', label: t.hens, icon: <Feather size={20} /> },
     { id: 'roosters', label: t.roosters, icon: <RoasterIcon size={20} /> },
     { id: 'chicks', label: t.chicks, icon: <Layers size={20} /> },
+    { id: 'diseases', label: 'Disease Library', icon: <Leaf size={20} /> },
     { id: 'eggProduction', label: t.eggProduction, icon: <Egg size={20} /> },
     { id: 'medicine', label: t.medicine, icon: <Syringe size={20} /> },
     { id: 'mortality', label: t.mortality, icon: <Skull size={20} /> },
@@ -186,6 +188,8 @@ useEffect(() => {
         />
       );
       case 'chicks': return <Chicks chicks={data.chicks} setChicks={(chicks: Chick[]) => setData({ ...data, chicks })} lang={lang} />;
+      case 'diseases':
+  return <DiseaseLibrary lang={lang} />;
       case 'eggProduction': return <EggProductionPage eggs={data.eggProduction} setEggs={(eggProduction: EggProduction[]) => setData({ ...data, eggProduction })} lang={lang} />;
       case 'medicine': return <MedicinePage medicines={data.medicines} setMedicines={(medicines: Medicine[]) => setData({ ...data, medicines })} lang={lang} />;
       case 'mortality': return <MortalityPage mortalities={data.mortalities} setMortalities={(mortalities: Mortality[]) => setData({ ...data, mortalities })} lang={lang} />;
